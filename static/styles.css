@@ -1,0 +1,140 @@
+/* Importing fonts */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=ZCOOL+XiaoWei&display=swap');
+/* end */
+
+
+/* nav bar */
+#white-bg {
+    background-color: white !important;
+}
+
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+/* end */
+
+
+/* LOGIN and REGISTER page */
+.login-register-header {
+    background-color: rgb(128, 0, 0);
+    color: rgb(255, 255, 255);
+    margin-bottom: 2rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+.login-container {
+    background-color: rgb(128, 0, 0);
+    color: rgb(255, 255, 255);
+    padding-top: 3rem;
+    text-align: center;
+    height: 30vh;
+}
+
+.register-container {
+    background-color: rgb(128, 0, 0);
+    color: rgb(255, 255, 255);
+    padding-top: 3rem;
+    text-align: center;
+    height: 38vh;
+}
+
+#login-photo {
+    width: 100%;
+    height: 90vh;
+    padding-bottom: 20px;
+}
+
+#logo {
+    font-family: 'ZCOOL XiaoWei', serif;
+    color: rgb(128, 0, 0);
+    padding-left: 10rem;
+}
+
+.btn-primary, .btn-primary:hover {
+    background-color: white;
+    color: rgb(128, 0, 0);
+    border-color: rgba(0, 0, 0, 0.226);
+}
+/* end */
+
+
+/* HOME page */
+.users-post-header {
+    background-color: rgb(128, 0, 0);
+    color: rgb(255, 255, 255);
+    margin-right: 25%;
+    margin-left: 25%;
+    padding: 0.6rem;
+    text-align: center;
+    border-radius: 1rem 1rem 0 0;
+}
+
+.users-post-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: solid;
+    border-width: 3.5px;
+    border-color: rgb(128, 0, 0);
+    color: rgb(128, 0, 0);
+    margin: 1% 25% 1% 25%;
+    padding: 0.6rem;
+    text-align: center;
+    border-radius: 0 0 1rem 1rem;
+}
+
+.others-post-header {
+    background-color: rgb(128, 0, 0);
+    color: rgb(255, 255, 255);
+    margin-right: 25%;
+    margin-left: 25%;
+    padding: 0.6rem;
+    text-align: center;
+    border-radius: 1rem 1rem 0 0;
+}
+
+
+/* end */
+
+
+/* positioning */
+.row {
+    display: flex !important;
+}
+
+.column {
+    float: left;
+}
+
+.left {
+    width: 60% !important;
+}
+  
+.right {
+    width: 40% !important;
+}
+
+#rem6-right-padding {
+    padding-right: 6rem !important;
+}
+
+#rem5-right-padding {
+    padding-right: 5rem !important;
+}
+/* end */
+
+
+/* misc */
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+}
+
+#rem6-right-padding {
+    padding-right: 6rem !important;
+}
+
+#rem5-right-padding {
+    padding-right: 5rem !important;
+}
+/* end */
