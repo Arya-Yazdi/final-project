@@ -127,14 +127,6 @@ nav .navbar-brand
 #rem5-right-padding {
     padding-right: 5rem !important;
 }
-/* end */
-
-
-/* misc */
-h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 48px;
-}
 
 #rem6-right-padding {
     padding-right: 6rem !important;
@@ -142,5 +134,13 @@ h1 {
 
 #rem5-right-padding {
     padding-right: 5rem !important;
+}
+/* end */
+
+
+/* misc */
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
 }
 /* end */
