@@ -41,6 +41,18 @@ def home():
     return render_template("home.html")
 
 
+@app.route("/posted")
+@login_required
+def posted():
+    """Record and show users post"""
+    if request.method == "POST":
+        if not request.form.get("title"):
+            return apology("must provide title", 400)
+        elif not request.form.get("content"):
+            return apology("Nothing is on your mind?", 400)
+    return render_template("home.html")
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
