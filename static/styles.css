@@ -52,7 +52,7 @@ nav .navbar-brand
     padding-left: 10rem;
 }
 
-.btn-primary, .btn-primary:hover {
+#login-register-button, #login-register-button:hover {
     background-color: white;
     color: rgb(128, 0, 0);
     border-color: rgba(0, 0, 0, 0.226);
