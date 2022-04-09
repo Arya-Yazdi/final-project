@@ -10,14 +10,14 @@
     </div>
 
     <div class="users-post-container">
-        <form action="/login" method="post">
+        <form action="/post" method="post">
             <div class="mb-3">
-                <input class="form-control" id="username" name="username" placeholder="Title" type="text" >
+                <input class="form-control" id="title" name="title" placeholder="Title" type="text" >
             </div>
             <div class="mb-3">
-                <textarea class="form-control" id="username" name="username" placeholder="Let loose ..." rows = "8" maxlength="500" style="resize: none"></textarea>
+                <textarea class="form-control" id="content" name="content" placeholder="Let loose ..." rows = "8" maxlength="500" style="resize: none"></textarea>
             </div>
-            <button class="btn btn-primary" type="submit"> Post </button>
+            <button class="btn btn-primary" id="home-button" type="submit"> Post </button>
         </form>
     </div>
 
