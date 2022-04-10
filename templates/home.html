@@ -24,4 +24,19 @@
     <div class="others-post-header">
         <h1> Posts from fellow CS50 students </h1>
     </div>
+
+        <table>
+            <tbody>
+                {% for post in posts %}
+                {% for user in users %}
+                    <tr>
+                        <td> {{ user["username"] }}</td>
+                        <td> {{ post["title"] }} </td>
+                        <td> {{ post["content"] }} </td>
+                        <td> {{ post["time"] }} </td>
+                    </tr>
+                {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
 {% endblock %}

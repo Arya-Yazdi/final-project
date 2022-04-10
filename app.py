@@ -105,7 +105,7 @@ def login():
         return render_template("login.html")
 
 
-# Log out function
+# Log out 
 @app.route("/logout")
 def logout():
     """Log user out"""
@@ -115,7 +115,8 @@ def logout():
 
     # Redirect user to login form
     return redirect("/")
-## end ##
+## END REGISTRATION, LOG IN , LOG OUT ##
+
 
 ## MAIN PAGE ##
 # Home page (Posting and viewing content)
@@ -143,11 +144,17 @@ def home():
 
             db.execute("INSERT INTO posts (user_id, title, content) VALUES (?, ?, ?)", session["user_id"], title, content)
             
-            return render_template("home.html")
+            posts = db.execute("SELECT * FROM posts")
+            users = db.execute("SELECT * FROM USERS")
+
+            return render_template("home.html", posts=posts, users=users)
 
     else:
-        return render_template("home.html")
-## end ##
+        posts = db.execute("SELECT * FROM posts")
+        users = db.execute("SELECT * FROM USERS")
+
+        return render_template("home.html", posts=posts, users=users)
+## END MAIN PAGE ##
 
 
 ## SETTINGS ##
@@ -188,4 +195,4 @@ def password():
     # User reached route via GET
     else:
         return render_template("password.html")
-## end ##
+## END SETTINGS ##
