@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    MY POSTS
+{% endblock %}
+
+{% block main %}
+    <div class="users-post-header">
+        <h1> Need to delete a post? </h1>
+    </div>
+
+    <div class="users-post-container">
+        <form action="/my-posts" method="post">
+            <div class="mb-3">
+                <input class="form-control" id="title" name="title" placeholder="Title" type="text" >
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" id="content" name="content" placeholder="Let loose ..." rows = "7" maxlength="500" style="resize: none"></textarea>
+            </div>
+            <button class="btn btn-primary" id="home-button" type="submit"> Post </button>
+        </form>
+    </div>
+
+    <div class="others-post-header">
+        <h1> Here's what you've posted </h1>
+    </div>
+
+    <div>
+        {% for post in posts %}
+            <div class="others-post-container">
+                <h2>{{ post["title"] }} </h2>
+                <p>{{ post["content"] }} </p>
+
+                <div class="row">
+                    <div class="column left">
+                        <p class="username"><strong> @{{ post["username"] }} </strong></p>
+                    </div>
+                    <div class="column right">
+                        <p> {{ post["time"] }} </p>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
