@@ -74,10 +74,10 @@ nav .navbar-brand
 .users-post-container {
     background-color: rgba(255, 255, 255, 0.9);
     border: solid;
-    border-width: 3.5px;
+    border-width: 3px;
     border-color: rgb(128, 0, 0);
     color: rgb(128, 0, 0);
-    margin: 1% 25% 1% 25%;
+    margin: 5px 25% 30px 25%;
     padding: 0.6rem;
     text-align: center;
     border-radius: 0 0 1rem 1rem;

@@ -25,16 +25,15 @@
         <h1> Posts from fellow CS50 students </h1>
     </div>
 
-        <table>
-            <tbody>
-                {% for post in posts %}
-                <div class="users-post-container">
-                        <p><strong> @{{ post["username"] }} </strong></p>
-                         <h2>{{ post["title"] }} </h2>
-                        <p>{{ post["content"] }} </p>
-                        <p>{{ post["time"] }} </p>
-                </div>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div>
+        {% for post in posts %}
+            <div class="users-post-container">
+                <h2>{{ post["title"] }} </h2>
+                <p>{{ post["content"] }} </p>
+                <p><strong> @{{ post["username"] }} </strong></p>
+                <p>{{ post["time"] }} </p>
+            </div>
+        {% endfor %}
+    </div>
+    
 {% endblock %}
