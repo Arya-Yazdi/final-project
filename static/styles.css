@@ -57,6 +57,11 @@ nav .navbar-brand
     color: rgb(128, 0, 0);
     border-color: rgba(0, 0, 0, 0.226);
 }
+
+.login-register-h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+}
 /* end */
 
 
@@ -91,12 +96,29 @@ nav .navbar-brand
     border-radius: 1rem 1rem 0 0;
 }
 
+.others-post-container {
+    background-color: rgba(128, 0, 0, 0.05);
+    border: solid;
+    border-width: 3px;
+    border-color: rgb(128, 0, 0);
+    color: rgb(0, 0, 0);
+    margin: 5px 25% 20px 25%;
+    padding: 0.6rem;
+    text-align: center;
+    border-radius: 5px;
+}
+
 #home-button {
     background-color: rgb(128, 0, 0);
     color: rgb(255, 255, 255);
     border-color: rgb(128, 0, 0);
     width:100px;
     font-size: 16px;
+}
+
+.username {
+    color:rgba(128, 0, 0, 0.8);
+    font-style: italic;
 }
 /* end */
 
@@ -138,7 +160,6 @@ nav .navbar-brand
 
 /* misc */
 h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 48px;
+    font-size: 35px;
 }
 /* end */

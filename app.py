@@ -7,6 +7,7 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
+from profanity_filter import ProfanityFilter
 
 from helpers import apology, login_required
 
@@ -24,6 +25,8 @@ Session(app)
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///final.db")
 
+# Configure profanity filter
+pf = ProfanityFilter()
 
 ## REGISTRATION, LOG IN , LOG OUT ##
 # Registration
@@ -139,8 +142,8 @@ def home():
             user = db.execute ("SELECT username FROM users WHERE id = ?", session["user_id"])
             username = user[0]["username"]
 
-            title = request.form.get("title")
-            content = request.form.get("content")
+            title = pf.request.form.get("title")
+            content = pf.request.form.get("content")
 
             db.execute("INSERT INTO posts (username, user_id, title, content) VALUES (?, ?, ?, ?)", username, session["user_id"], title, content)
             
@@ -148,6 +151,7 @@ def home():
 
             return render_template("home.html", posts=posts)
 
+    # User visits page without posting
     else:
         posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
 
