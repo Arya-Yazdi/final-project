@@ -5,9 +5,10 @@ from datetime import date, datetime
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
+from profanity_filter import ProfanityFilter
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
-from profanity_filter import ProfanityFilter
+
 
 from helpers import apology, login_required
 
@@ -29,10 +30,9 @@ db = SQL("sqlite:///final.db")
 pf = ProfanityFilter()
 
 ## REGISTRATION, LOG IN , LOG OUT ##
-# Registration
+# Register user
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    """Register user"""
 
     # Clear user_id
     session.clear()
@@ -72,10 +72,9 @@ def register():
         return render_template("register.html")
         
 
-# Log in 
+# Log user in 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    """Log user in"""
 
     # Clear user_id
     session.clear()
@@ -108,10 +107,9 @@ def login():
         return render_template("login.html")
 
 
-# Log out 
+# Log user out 
 @app.route("/logout")
 def logout():
-    """Log user out"""
 
     # Clear user_id
     session.clear()
@@ -126,7 +124,7 @@ def logout():
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def home():
-    """Record and show users post"""
+
     # When user submits a post
     if request.method == "POST":
 
@@ -139,20 +137,25 @@ def home():
             return apology("Nothing is on your mind?", 400)
 
         else:
+            # Get username of user from database
             user = db.execute ("SELECT username FROM users WHERE id = ?", session["user_id"])
             username = user[0]["username"]
 
-            title = pf.request.form.get("title")
-            content = pf.request.form.get("content")
+            # Get title and content user posts (and filter offensive words)
+            filtered_title = pf.censor(request.form.get("title"))
+            filtered_content = pf.censor(request.form.get("content"))
 
-            db.execute("INSERT INTO posts (username, user_id, title, content) VALUES (?, ?, ?, ?)", username, session["user_id"], title, content)
+            # Store title and content user posts in database
+            db.execute("INSERT INTO posts (username, user_id, title, content) VALUES (?, ?, ?, ?)", username, session["user_id"], filtered_title, filtered_content)
             
+            # Load all posts from database
             posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
 
             return render_template("home.html", posts=posts)
 
     # User visits page without posting
     else:
+        # Load all posts from database
         posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
 
         return render_template("home.html", posts=posts)
@@ -160,11 +163,11 @@ def home():
 
 
 ## SETTINGS ##
-# Changing passwords
+# Allow user to change password
 @app.route("/password", methods=["GET", "POST"])
 @login_required
 def password():
-    """Allow user to change password"""
+
     # User submits form
     if request.method == "POST":
 
