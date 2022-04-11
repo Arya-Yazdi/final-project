@@ -28,14 +28,12 @@
         <table>
             <tbody>
                 {% for post in posts %}
-                {% for user in users %}
                     <tr>
-                        <td> {{ user["username"] }}</td>
+                        <td> {{ posts["username"] }}</td>
                         <td> {{ post["title"] }} </td>
                         <td> {{ post["content"] }} </td>
                         <td> {{ post["time"] }} </td>
                     </tr>
-                {% endfor %}
                 {% endfor %}
             </tbody>
         </table>

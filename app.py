@@ -61,7 +61,7 @@ def register():
         # Log user in after they successfully register
         elif request.form.get("password") == request.form.get("confirmation"):
             db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", request.form.get(
-                "username"), generate_password_hash(request.form.get("password")))
+                       "username"), generate_password_hash(request.form.get("password")))
             return login()
 
     # User reached route via GET
@@ -123,9 +123,6 @@ def logout():
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def home():
-    # user = db.execute ("SELECT username FROM users WHERE id = ?", session["user_id"])
-    # username = user[0]["username"]
-
     """Record and show users post"""
     # When user submits a post
     if request.method == "POST":
@@ -139,21 +136,22 @@ def home():
             return apology("Nothing is on your mind?", 400)
 
         else:
+            user = db.execute ("SELECT username FROM users WHERE id = ?", session["user_id"])
+            username = user[0]["username"]
+
             title = request.form.get("title")
             content = request.form.get("content")
 
-            db.execute("INSERT INTO posts (user_id, title, content) VALUES (?, ?, ?)", session["user_id"], title, content)
+            db.execute("INSERT INTO posts (username, user_id, title, content) VALUES (?, ?, ?, ?)", username, session["user_id"], title, content)
             
             posts = db.execute("SELECT * FROM posts")
-            users = db.execute("SELECT * FROM USERS")
 
-            return render_template("home.html", posts=posts, users=users)
+            return render_template("home.html", posts=posts)
 
     else:
         posts = db.execute("SELECT * FROM posts")
-        users = db.execute("SELECT * FROM USERS")
 
-        return render_template("home.html", posts=posts, users=users)
+        return render_template("home.html", posts=posts)
 ## END MAIN PAGE ##
 
 
