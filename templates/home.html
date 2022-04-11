@@ -28,12 +28,12 @@
         <table>
             <tbody>
                 {% for post in posts %}
-                    <tr>
-                        <td><strong> @{{ post["username"] }} </strong></td>
-                        <td> {{ post["title"] }} </td>
-                        <td> {{ post["content"] }} </td>
-                        <td> {{ post["time"] }} </td>
-                    </tr>
+                <div class="users-post-container">
+                        <p><strong> @{{ post["username"] }} </strong></p>
+                         <h2>{{ post["title"] }} </h2>
+                        <p>{{ post["content"] }} </p>
+                        <p>{{ post["time"] }} </p>
+                </div>
                 {% endfor %}
             </tbody>
         </table>

@@ -144,12 +144,12 @@ def home():
 
             db.execute("INSERT INTO posts (username, user_id, title, content) VALUES (?, ?, ?, ?)", username, session["user_id"], title, content)
             
-            posts = db.execute("SELECT * FROM posts")
+            posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
 
             return render_template("home.html", posts=posts)
 
     else:
-        posts = db.execute("SELECT * FROM posts")
+        posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
 
         return render_template("home.html", posts=posts)
 ## END MAIN PAGE ##
