@@ -119,7 +119,7 @@ def logout():
 ## END REGISTRATION, LOG IN , LOG OUT ##
 
 
-## MAIN PAGE ##
+## MAIN PAGES ##
 # Home page (Posting and viewing content)
 @app.route("/", methods=["GET", "POST"])
 @login_required
@@ -159,7 +159,47 @@ def home():
         posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
 
         return render_template("home.html", posts=posts)
-## END MAIN PAGE ##
+
+# My Posts page (Viewing and deleting content)
+@app.route("/my-posts", methods=["GET", "POST"])
+@login_required
+def my_posts():
+
+    # When user submits a post
+    if request.method == "POST":
+
+        # Ensure title is included
+        if not request.form.get("title"):
+            return apology("must provide title", 400)
+
+        # Ensure content of post is included
+        elif not request.form.get("content"):
+            return apology("Nothing is on your mind?", 400)
+
+        else:
+            # Get username of user from database
+            user = db.execute ("SELECT username FROM users WHERE id = ?", session["user_id"])
+            username = user[0]["username"]
+
+            # Get title and content user posts (and filter offensive words)
+            filtered_title = pf.censor(request.form.get("title"))
+            filtered_content = pf.censor(request.form.get("content"))
+
+            # Store title and content user posts in database
+            db.execute("INSERT INTO posts (username, user_id, title, content) VALUES (?, ?, ?, ?)", username, session["user_id"], filtered_title, filtered_content)
+            
+            # Load all posts from database
+            posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
+
+            return render_template("my_posts.html", posts=posts)
+
+    # User visits page without posting
+    else:
+        # Load all posts from database
+        posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
+
+        return render_template("my_posts.html", posts=posts)
+## END MAIN PAGES ##
 
 
 ## SETTINGS ##
