@@ -168,37 +168,28 @@ def my_posts():
     # When user submits a post
     if request.method == "POST":
 
-        # Ensure title is included
-        if not request.form.get("title"):
-            return apology("must provide title", 400)
-
-        # Ensure content of post is included
-        elif not request.form.get("content"):
-            return apology("Nothing is on your mind?", 400)
+        # Ensure title of post to be deleted is included
+        if not request.form.get("delete-title"):
+            return apology("must provide title of post you want to delete", 400)
 
         else:
-            # Get username of user from database
-            user = db.execute ("SELECT username FROM users WHERE id = ?", session["user_id"])
-            username = user[0]["username"]
-
             # Get title and content user posts (and filter offensive words)
-            filtered_title = pf.censor(request.form.get("title"))
-            filtered_content = pf.censor(request.form.get("content"))
+            delete_title = request.form.get("delete-title")
 
-            # Store title and content user posts in database
-            db.execute("INSERT INTO posts (username, user_id, title, content) VALUES (?, ?, ?, ?)", username, session["user_id"], filtered_title, filtered_content)
-            
-            # Load all posts from database
-            posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
+            # Delete user's post from database
+            db.execute("DELETE FROM posts WHERE title = ? AND user_id = ? ", delete_title, session["user_id"])
 
-            return render_template("my_posts.html", posts=posts)
+            # Load all posts from database         
+            user_posts = db.execute("SELECT * FROM posts WHERE user_id = ? ORDER BY time DESC ", session["user_id"])
+
+            return render_template("my_posts.html", user_posts=user_posts)
 
     # User visits page without posting
     else:
-        # Load all posts from database
-        posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
+        # Load all posts from database         
+        user_posts = db.execute("SELECT * FROM posts WHERE user_id = ? ORDER BY time DESC ", session["user_id"])
 
-        return render_template("my_posts.html", posts=posts)
+        return render_template("my_posts.html",  user_posts= user_posts)
 ## END MAIN PAGES ##
 
 

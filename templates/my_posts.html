@@ -12,12 +12,9 @@
     <div class="users-post-container">
         <form action="/my-posts" method="post">
             <div class="mb-3">
-                <input class="form-control" id="title" name="title" placeholder="Title" type="text" >
+                <input class="form-control" id="delete-title" name="delete-title" placeholder="Title of the post you want to delete" type="text" >
             </div>
-            <div class="mb-3">
-                <textarea class="form-control" id="content" name="content" placeholder="Let loose ..." rows = "7" maxlength="500" style="resize: none"></textarea>
-            </div>
-            <button class="btn btn-primary" id="home-button" type="submit"> Post </button>
+            <button class="btn btn-primary main-button" id="delete-button" type="submit"> Delete </button>
         </form>
     </div>
 
@@ -26,17 +23,17 @@
     </div>
 
     <div>
-        {% for post in posts %}
+        {% for user_post in user_posts %}
             <div class="others-post-container">
-                <h2>{{ post["title"] }} </h2>
-                <p>{{ post["content"] }} </p>
+                <h2>{{ user_post["title"] }} </h2>
+                <p>{{ user_post["content"] }} </p>
 
                 <div class="row">
                     <div class="column left">
-                        <p class="username"><strong> @{{ post["username"] }} </strong></p>
+                        <p class="username"><strong> @{{ user_post["username"] }} </strong></p>
                     </div>
                     <div class="column right">
-                        <p> {{ post["time"] }} </p>
+                        <p> {{ user_post["time"] }} </p>
                     </div>
                 </div>
 
