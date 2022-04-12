@@ -1,7 +1,5 @@
 import os
 
-from datetime import date, datetime
-
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
@@ -159,7 +157,7 @@ def home():
 
         return render_template("home.html", posts=posts)
 
-# My Posts page (Viewing and deleting content)
+# My posts page (Viewing and deleting content)
 @app.route("/my-posts", methods=["GET", "POST"])
 @login_required
 def my_posts():
@@ -193,13 +191,13 @@ def my_posts():
 
 
 ## SETTINGS ##
-# Allow user to change password
+# Load settings page
 @app.route("/setting")
 @login_required
 def setting():
-        return render_template("setting.html")
+    return render_template("setting.html")
 
-
+# Allow user to change password
 @app.route("/password", methods=["GET", "POST"])
 @login_required
 def password():
@@ -258,17 +256,13 @@ def delete_account():
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("delete-password")):
             return apology("invalid username and/or password", 400)
 
-        print(1)
-        print(1)
-        print(1)
-        # Delete user from database
         username = request.form.get("delete-username")
-        db.execute("DELETE FROM posts WHERE username = ? AND user_id = ?", username, session["user_id"])
-        db.execute("DELETE FROM users WHERE id = ?", session["user_id"])
 
-        print(2)
-        print(2)
-        print(2)
+        # Delete user's posts
+        db.execute("DELETE FROM posts WHERE username = ? AND user_id = ?", username, session["user_id"])
+
+        # Delete user from database
+        db.execute("DELETE FROM users WHERE id = ?", session["user_id"])
 
         # Clear user_id
         session.clear()
@@ -276,8 +270,7 @@ def delete_account():
         # Redirect user to home page
         return redirect("/")
 
-    # User reaches page by link
+    # User reached route via GET
     else:
         return render_template("setting.html")
-
 ## END SETTINGS ##
