@@ -19,12 +19,17 @@
             <form action="/register" method="post">
                 <div class="mb-3">
                     <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text">
+                    <p> {{ error_username_taken }}</p>
+                    <p> {{ error_no_username }}</p>
                 </div>
                 <div class="mb-3">
                     <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="text" autocomplete="off">
+                    <p> {{ error_password }} </p>
                 </div>
                 <div class="mb-3">
                     <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Confirm" type="text" autocomplete="off">
+                    <p> {{ error_reenter_password }} </p>
+                    <p> {{ error_password_match }} </p>
                 </div>
                 <button class="btn btn-primary" id="login-register-button" type="submit">Register</button>
             </form>

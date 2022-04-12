@@ -41,23 +41,28 @@ def register():
 
         # Ensure username is not already taken
         if len(dbusername) == 1:
-            return apology("username is already taken", 400)
+            error_username_taken = "*Username is already taken :("
+            return render_template("register.html", error_username_taken=error_username_taken)
 
         # Ensure username was submitted
         elif not request.form.get("username"):
-            return apology("must provide username", 400)
+            error_no_username = "*Please type in a username"
+            return render_template("register.html", error_no_username=error_no_username)
 
         # Ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password", 400)
+            error_password = "*Please type in your password"
+            return render_template("register.html", error_password=error_password)
 
         # Ensure password was reentered for confirmation
         elif not request.form.get("confirmation"):
-            return apology("must confirm password", 400)
+            error_reenter_password = "*Please reenter your password"
+            return render_template("register.html", error_reenter_password=error_reenter_password)
 
         # Ensure password was confirmed correctly
         elif request.form.get("password") != request.form.get("confirmation"):
-            return apology("password does not match", 400)
+            error_password_match = "*Passwords do not match"
+            return render_template("register.html", error_password_match=error_password_match)
 
         # Log user in after they successfully register
         elif request.form.get("password") == request.form.get("confirmation"):
@@ -81,18 +86,21 @@ def login():
     if request.method == "POST":
         # Ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username", 400)
+            error_no_username = "*Please type in a username"
+            return render_template("login.html", error_no_username=error_no_username)
 
         # Ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password", 400)
+            error_password = "*Please type in your password"
+            return render_template("login.html", error_password=error_password)
 
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("invalid username and/or password", 400)
+            error_invalid = "*Invalid password / username"
+            return render_template("login.html", error_invalid=error_invalid)
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
@@ -127,11 +135,13 @@ def home():
     if request.method == "POST":
         # Ensure title is included
         if not request.form.get("title"):
-            return apology("must provide title", 400)
+            error_title = "*Add a title"
+            return render_template("setting.html", error_title=error_title)
 
         # Ensure content of post is included
         elif not request.form.get("content"):
-            return apology("Nothing is on your mind?", 400)
+            error_content = "*Add a title"
+            return render_template("setting.html", error_content=error_content)
 
         else:
             # Get username of user from database
@@ -243,21 +253,21 @@ def delete_account():
     if request.method == "POST":
         # Ensure username was submitted
         if not request.form.get("delete-username"):
-            error1 = "*Please type in your username"
-            return render_template("setting.html", error1=error1)
+            error_username = "*Please type in your username"
+            return render_template("setting.html", error_username=error_username)
 
         # Ensure password was submitted
         elif not request.form.get("delete-password"):
-            error2 = "*Please type in your password"
-            return render_template("setting.html", error2=error2)
+            error_password = "*Please type in your password"
+            return render_template("setting.html", error_password=error_password)
 
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("delete-username"))
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("delete-password")):
-            error3 = "*Invalid password / username"
-            return render_template("setting.html", error3=error3)
+            error_invalid = "*Invalid password / username"
+            return render_template("setting.html", error_invalid=error_invalid)
 
         username = request.form.get("delete-username")
 

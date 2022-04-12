@@ -19,9 +19,12 @@
             <form action="/login" method="post">
                 <div class="mb-3">
                     <input class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text" maxlength="20">
+                    <p> {{ error_no_username }}</p>
                 </div>
                 <div class="mb-3">
                     <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+                    <p> {{ error_password }} </p>
+                    <p> {{ error_invalid }} </p>
                 </div>
                 <button class="btn btn-primary" id="login-register-button" type="submit">Log In</button>
             </form>

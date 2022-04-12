@@ -13,9 +13,11 @@
         <form action="/" method="post">
             <div class="mb-3">
                 <input class="form-control" id="title" name="title" placeholder="Title" type="text" >
+                <p> {{ error_title }}</p>
             </div>
             <div class="mb-3">
                 <textarea class="form-control" id="content" name="content" placeholder="Let loose ..." rows = "7" maxlength="500" style="resize: none"></textarea>
+                <p> {{ error_content }}</p>
             </div>
             <button class="btn btn-primary main-button" id="home-button" type="submit"> Post </button>
         </form>
