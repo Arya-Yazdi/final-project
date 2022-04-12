@@ -218,7 +218,12 @@ def my_posts():
 @app.route("/setting")
 @login_required
 def setting():
-    return render_template("setting.html")
+    user = db.execute ("SELECT * FROM users WHERE id = ?", session["user_id"])
+    username = user[0]["username"]
+    created = user[0]["time"]
+
+    post_length = len(db.execute ("SELECT * FROM posts WHERE user_id = ?", session["user_id"]))
+    return render_template("setting.html", username=username, created=created, post_length=post_length)
 
 # Allow user to change password
 @app.route("/password", methods=["GET", "POST"])
