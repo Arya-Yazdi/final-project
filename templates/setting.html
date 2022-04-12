@@ -22,16 +22,17 @@
         <form action="/password" method="post">
             <div class="mb-3">
                 <input class="form-control mx-auto w-auto" id="current_password" name="current_password" placeholder="Current password" type="text" autocomplete="off">
-            </div>
-            <div class="mb-3">
-                <input class="form-control mx-auto w-auto" id="new_password" name="new_password" placeholder="New password" type="text" autocomplete="off">
                 <p> {{ error_password }}</p>
                 <p> {{ error_wrong_password }}</p>
             </div>
             <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="new_password" name="new_password" placeholder="New password" type="text" autocomplete="off">
+                <p> {{ error_new_password }}</p>
+            </div>
+            <div class="mb-3">
                 <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Confirm new password" type="text" autocomplete="off">
-                <p> {{ error_reenter_password }}</p>
                 <p> {{ error_password_match }}</p>
+                <p> {{ error_reenter_password }}</p>
             </div>
             <button class="btn btn-primary setting-button" type="submit"> Update password </button>
         </form>
@@ -49,7 +50,7 @@
             </div>
             <div class="mb-3">
                 <input class="form-control mx-auto w-auto" id="delete-password" name="delete-password" placeholder="Password" type="password">
-                <p> {{ error_password }}</p>
+                <p> {{ error_password2 }}</p>
                 <p> {{ error_invalid }}</p>
             </div>
             <button class="btn btn-primary setting-button" type="submit"> Delete account </button>

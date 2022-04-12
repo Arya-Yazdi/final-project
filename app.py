@@ -148,7 +148,7 @@ def home():
 
         # Ensure content of post is included
         elif not request.form.get("content"):
-            error_content = "*Nothing is on your mind?"
+            error_content = "Nothing is on your mind?"
 
             # Load all posts from database
             posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
@@ -228,16 +228,17 @@ def password():
     # User submits form to change password
     if request.method == "POST":
 
+
+        # Ensure current password was submitted
+        if not request.form.get("current_password"):
+            error_password = "*Please type in your password"
+            return render_template("setting.html", error_password=error_password)
+
         # Ensure current password is correct
         user = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
         if not check_password_hash(user[0]["hash"], request.form.get("current_password")):
             error_wrong_password = "*Incorrect password"
             return render_template("setting.html", error_wrong_password=error_wrong_password)
-
-        # Ensure current password was submitted
-        elif not request.form.get("current_password"):
-            error_password = "*Please type in your password"
-            return render_template("setting.html", error_password=error_password)
 
         # Ensure new password was submitted
         elif not request.form.get("new_password"):
@@ -252,7 +253,7 @@ def password():
         # Ensure new password was confirmed correctly
         elif request.form.get("new_password") != request.form.get("confirmation"):
             error_password_match = "*Passwords do not match"
-            return render_template("register.html", error_password_match=error_password_match)
+            return render_template("setting.html", error_password_match=error_password_match)
 
         elif request.form.get("new_password") == request.form.get("confirmation"):
             db.execute("UPDATE users SET hash = ? WHERE id = ?", generate_password_hash(
@@ -276,8 +277,8 @@ def delete_account():
 
         # Ensure password was submitted
         elif not request.form.get("delete-password"):
-            error_password = "*Please type in your password"
-            return render_template("setting.html", error_password=error_password)
+            error_password2 = "*Please type in your password"
+            return render_template("setting.html", error_password2=error_password2)
 
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("delete-username"))
