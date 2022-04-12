@@ -136,12 +136,12 @@ def home():
         # Ensure title is included
         if not request.form.get("title"):
             error_title = "*Add a title"
-            return render_template("setting.html", error_title=error_title)
+            return render_template("home.html", error_title=error_title)
 
         # Ensure content of post is included
         elif not request.form.get("content"):
             error_content = "*Add a title"
-            return render_template("setting.html", error_content=error_content)
+            return render_template("home.html", error_content=error_content)
 
         else:
             # Get username of user from database
@@ -178,7 +178,7 @@ def my_posts():
         # Ensure title of post to be deleted is included
         if not request.form.get("delete-title"):
             error_delete_title = "*Type in title of post you want to delete"
-            return render_template("setting.html", error_delete_title=error_delete_title)
+            return render_template("my_posts.html", error_delete_title=error_delete_title)
 
         else:
             # Get title and content user posts (and filter offensive words)
