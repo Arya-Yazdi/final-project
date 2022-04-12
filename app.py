@@ -243,18 +243,21 @@ def delete_account():
     if request.method == "POST":
         # Ensure username was submitted
         if not request.form.get("delete-username"):
-            return apology("must provide username", 400)
+            error1 = "*Please type in your username"
+            return render_template("setting.html", error1=error1)
 
         # Ensure password was submitted
         elif not request.form.get("delete-password"):
-            return apology("must provide password", 400)
+            error2 = "*Please type in your password"
+            return render_template("setting.html", error2=error2)
 
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("delete-username"))
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("delete-password")):
-            return apology("invalid username and/or password", 400)
+            error3 = "*Invalid password / username"
+            return render_template("setting.html", error3=error3)
 
         username = request.form.get("delete-username")
 
