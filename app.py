@@ -127,7 +127,6 @@ def home():
 
     # When user submits a post
     if request.method == "POST":
-
         # Ensure title is included
         if not request.form.get("title"):
             return apology("must provide title", 400)
@@ -195,11 +194,17 @@ def my_posts():
 
 ## SETTINGS ##
 # Allow user to change password
+@app.route("/setting")
+@login_required
+def setting():
+        return render_template("setting.html")
+
+
 @app.route("/password", methods=["GET", "POST"])
 @login_required
 def password():
 
-    # User submits form
+    # User submits form to change password
     if request.method == "POST":
 
         # Ensure current password is correct
@@ -226,9 +231,53 @@ def password():
         elif request.form.get("new_password") == request.form.get("confirmation"):
             db.execute("UPDATE users SET hash = ? WHERE id = ?", generate_password_hash(
                 request.form.get("new_password")), session["user_id"])
-            return render_template("pass_updated.html")
+            return render_template("setting.html")
 
     # User reached route via GET
     else:
-        return render_template("password.html")
+        return render_template("setting.html")
+
+@app.route("/delete-account", methods=["GET", "POST"])
+@login_required
+def delete_account():
+
+    # User submits form
+    if request.method == "POST":
+        # Ensure username was submitted
+        if not request.form.get("delete-username"):
+            return apology("must provide username", 400)
+
+        # Ensure password was submitted
+        elif not request.form.get("delete-password"):
+            return apology("must provide password", 400)
+
+        # Query database for username
+        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("delete-username"))
+
+        # Ensure username exists and password is correct
+        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("delete-password")):
+            return apology("invalid username and/or password", 400)
+
+        print(1)
+        print(1)
+        print(1)
+        # Delete user from database
+        username = request.form.get("delete-username")
+        db.execute("DELETE FROM posts WHERE username = ? AND user_id = ?", username, session["user_id"])
+        db.execute("DELETE FROM users WHERE id = ?", session["user_id"])
+
+        print(2)
+        print(2)
+        print(2)
+
+        # Clear user_id
+        session.clear()
+
+        # Redirect user to home page
+        return redirect("/")
+
+    # User reaches page by link
+    else:
+        return render_template("setting.html")
+
 ## END SETTINGS ##
