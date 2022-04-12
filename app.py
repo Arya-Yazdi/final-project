@@ -86,7 +86,7 @@ def login():
     if request.method == "POST":
         # Ensure username was submitted
         if not request.form.get("username"):
-            error_no_username = "*Please type in a username"
+            error_no_username = "*Please type in your username"
             return render_template("login.html", error_no_username=error_no_username)
 
         # Ensure password was submitted
@@ -133,15 +133,27 @@ def home():
 
     # When user submits a post
     if request.method == "POST":
+
+        title = request.form.get("title")
+        content = request.form.get("content")
+
         # Ensure title is included
         if not request.form.get("title"):
             error_title = "*Add a title"
-            return render_template("home.html", error_title=error_title)
+
+            # Load all posts from database
+            posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
+
+            return render_template("home.html", error_title=error_title, posts=posts, content=content)
 
         # Ensure content of post is included
         elif not request.form.get("content"):
-            error_content = "*Add a title"
-            return render_template("home.html", error_content=error_content)
+            error_content = "*Nothing is on your mind?"
+
+            # Load all posts from database
+            posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
+
+            return render_template("home.html", error_content=error_content, posts=posts, title=title)
 
         else:
             # Get username of user from database
