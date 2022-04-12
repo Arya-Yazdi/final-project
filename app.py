@@ -177,7 +177,8 @@ def my_posts():
 
         # Ensure title of post to be deleted is included
         if not request.form.get("delete-title"):
-            return apology("must provide title of post you want to delete", 400)
+            error_delete_title = "*Type in title of post you want to delete"
+            return render_template("setting.html", error_delete_title=error_delete_title)
 
         else:
             # Get title and content user posts (and filter offensive words)
@@ -218,23 +219,28 @@ def password():
         # Ensure current password is correct
         user = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
         if not check_password_hash(user[0]["hash"], request.form.get("current_password")):
-            return apology("wrong password", 400)
+            error_wrong_password = "*Incorrect password"
+            return render_template("setting.html", error_wrong_password=error_wrong_password)
 
         # Ensure current password was submitted
         elif not request.form.get("current_password"):
-            return apology("must provide current password", 400)
+            error_password = "*Please type in your password"
+            return render_template("setting.html", error_password=error_password)
 
         # Ensure new password was submitted
         elif not request.form.get("new_password"):
-            return apology("must provide new password", 400)
+            error_new_password = "*Please type in your new password"
+            return render_template("setting.html", error_new_password=error_new_password)
 
         # Ensure password was reentered for confirmation
         elif not request.form.get("confirmation"):
-            return apology("must confirm password", 400)
+            error_reenter_password = "*Please reenter your password"
+            return render_template("setting.html", error_reenter_password=error_reenter_password)
 
         # Ensure new password was confirmed correctly
         elif request.form.get("new_password") != request.form.get("confirmation"):
-            return apology("new password does not match", 400)
+            error_password_match = "*Passwords do not match"
+            return render_template("register.html", error_password_match=error_password_match)
 
         elif request.form.get("new_password") == request.form.get("confirmation"):
             db.execute("UPDATE users SET hash = ? WHERE id = ?", generate_password_hash(
