@@ -294,7 +294,7 @@ def password():
         # Update password to new one
         elif request.form.get("new_password") == request.form.get("confirmation"):
             db.execute("UPDATE users SET hash = ? WHERE id = ?", generate_password_hash(request.form.get("new_password")), session["user_id"])
-            success_password = "*Passwords successfully updated"
+            success_password = "*Password successfully updated"
             return render_template("setting.html", success_password=success_password, username=username, created=created, post_length=post_length)
 
     # User reached route via GET

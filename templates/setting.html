@@ -34,16 +34,16 @@
     <div class="users-post-container">
         <form action="/password" method="post">
             <div class="mb-3">
-                <input class="form-control mx-auto w-auto" id="current_password" name="current_password" placeholder="Current password" type="text" autocomplete="off">
+                <input class="form-control mx-auto w-auto" id="current_password" name="current_password" placeholder="Current password" type="password" autocomplete="off">
                 <p class="error"> {{ error_password }}</p>
                 <p class="error"> {{ error_wrong_password }}</p>
             </div>
             <div class="mb-3">
-                <input class="form-control mx-auto w-auto" id="new_password" name="new_password" placeholder="New password" type="text" autocomplete="off">
+                <input class="form-control mx-auto w-auto" id="new_password" name="new_password" placeholder="New password" type="password" autocomplete="off">
                 <p class="error"> {{ error_new_password }}</p>
             </div>
             <div class="mb-3">
-                <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Confirm new password" type="text" autocomplete="off">
+                <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Confirm new password" type="password" autocomplete="off">
                 <p class="error"> {{ error_password_match }}</p>
                 <p class="error"> {{ error_reenter_password }}</p>
                 <p class="success"> {{ success_password }}</p>
