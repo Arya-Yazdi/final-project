@@ -7,8 +7,7 @@ from profanity_filter import ProfanityFilter
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 
-
-from helpers import login_required
+from login_required import login_required
 
 # Configure application
 app = Flask(__name__)
@@ -241,10 +240,12 @@ def my_posts():
 @app.route("/setting")
 @login_required
 def setting():
+    # Get username and date of account creation of user from database
     user = db.execute ("SELECT * FROM users WHERE id = ?", session["user_id"])
     username = user[0]["username"]
     created = user[0]["time"]
 
+    # Calculate number of posts user posted
     post_length = len(db.execute ("SELECT * FROM posts WHERE user_id = ?", session["user_id"]))
     return render_template("setting.html", username=username, created=created, post_length=post_length)
 
@@ -256,37 +257,45 @@ def password():
     # User submits form to change password
     if request.method == "POST":
 
+        # Get username and date of account creation of user from database
+        user = db.execute ("SELECT * FROM users WHERE id = ?", session["user_id"])
+        username = user[0]["username"]
+        created = user[0]["time"]
+
+        # Calculate number of posts user posted
+        post_length = len(db.execute ("SELECT * FROM posts WHERE user_id = ?", session["user_id"]))
 
         # Ensure current password was submitted
         if not request.form.get("current_password"):
             error_password = "*Please type in your password"
-            return render_template("setting.html", error_password=error_password)
+            return render_template("setting.html", error_password=error_password, username=username, created=created, post_length=post_length)
 
         # Ensure current password is correct
         user = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
         if not check_password_hash(user[0]["hash"], request.form.get("current_password")):
             error_wrong_password = "*Incorrect password"
-            return render_template("setting.html", error_wrong_password=error_wrong_password)
+            return render_template("setting.html", error_wrong_password=error_wrong_password, username=username, created=created, post_length=post_length)
 
         # Ensure new password was submitted
         elif not request.form.get("new_password"):
             error_new_password = "*Please type in your new password"
-            return render_template("setting.html", error_new_password=error_new_password)
+            return render_template("setting.html", error_new_password=error_new_password, username=username, created=created, post_length=post_length)
 
         # Ensure password was reentered for confirmation
         elif not request.form.get("confirmation"):
             error_reenter_password = "*Please reenter your password"
-            return render_template("setting.html", error_reenter_password=error_reenter_password)
+            return render_template("setting.html", error_reenter_password=error_reenter_password, username=username, created=created, post_length=post_length)
 
         # Ensure new password was confirmed correctly
         elif request.form.get("new_password") != request.form.get("confirmation"):
             error_password_match = "*Passwords do not match"
-            return render_template("setting.html", error_password_match=error_password_match)
+            return render_template("setting.html", error_password_match=error_password_match, username=username, created=created, post_length=post_length)
 
+        # Update password to new one
         elif request.form.get("new_password") == request.form.get("confirmation"):
-            db.execute("UPDATE users SET hash = ? WHERE id = ?", generate_password_hash(
-                request.form.get("new_password")), session["user_id"])
-            return render_template("setting.html")
+            db.execute("UPDATE users SET hash = ? WHERE id = ?", generate_password_hash(request.form.get("new_password")), session["user_id"])
+            success_password = "*Passwords successfully updated"
+            return render_template("setting.html", success_password=success_password, username=username, created=created, post_length=post_length)
 
     # User reached route via GET
     else:
@@ -298,15 +307,24 @@ def delete_account():
 
     # User submits form
     if request.method == "POST":
+
+        # Get username and date of account creation of user from database
+        user = db.execute ("SELECT * FROM users WHERE id = ?", session["user_id"])
+        username = user[0]["username"]
+        created = user[0]["time"]
+
+        # Calculate number of posts user posted
+        post_length = len(db.execute ("SELECT * FROM posts WHERE user_id = ?", session["user_id"]))
+
         # Ensure username was submitted
         if not request.form.get("delete-username"):
             error_username = "*Please type in your username"
-            return render_template("setting.html", error_username=error_username)
+            return render_template("setting.html", error_username=error_username, username=username, created=created, post_length=post_length)
 
         # Ensure password was submitted
         elif not request.form.get("delete-password"):
             error_password2 = "*Please type in your password"
-            return render_template("setting.html", error_password2=error_password2)
+            return render_template("setting.html", error_password2=error_password2, username=username, created=created, post_length=post_length)
 
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("delete-username"))
@@ -314,7 +332,7 @@ def delete_account():
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("delete-password")):
             error_invalid = "*Invalid password / username"
-            return render_template("setting.html", error_invalid=error_invalid)
+            return render_template("setting.html", error_invalid=error_invalid, username=username, created=created, post_length=post_length)
 
         username = request.form.get("delete-username")
 

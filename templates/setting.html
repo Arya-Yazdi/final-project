@@ -12,6 +12,7 @@
 
     <div class="users-post-container">
         <h2><i>@{{ username }}</i></h2>
+        <br>
         <div class="row">
             <div class="column left">
                 <p><strong> Number of posts: </strong> {{ post_length }} </p>
@@ -20,6 +21,7 @@
                 <p><strong> Created on: </strong> {{ created }} </p>
             </div>
         </div>
+        <br>
         <form action="/logout" method="post">
             <button class="btn btn-primary main-button" id="delete-button" type="submit"> Log out </button>
         </form>
@@ -44,6 +46,7 @@
                 <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Confirm new password" type="text" autocomplete="off">
                 <p class="error"> {{ error_password_match }}</p>
                 <p class="error"> {{ error_reenter_password }}</p>
+                <p class="success"> {{ success_password }}</p>
             </div>
             <button class="btn btn-primary setting-button" type="submit"> Update password </button>
         </form>
@@ -67,5 +70,6 @@
             <button class="btn btn-primary setting-button" type="submit"> Delete account </button>
         </form>
     </div>
+    <br>
 
 {% endblock %}

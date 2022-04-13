@@ -1,3 +1,4 @@
+# Function taken from source code from Harvard's CS50 class.
 import os
 import requests
 import urllib.parse

@@ -22,6 +22,7 @@ nav .navbar-brand
     margin-bottom: 2rem;
     padding: 2rem;
     text-align: center;
+    border-radius: 0 20px 0 0;
 }
 
 .login-container {
@@ -30,6 +31,7 @@ nav .navbar-brand
     padding-top: 3rem;
     text-align: center;
     height: 30.5vh;
+    border-radius: 0 0 20px 0;
 }
 
 .register-container {
@@ -37,17 +39,19 @@ nav .navbar-brand
     color: rgb(255, 255, 255);
     padding-top: 3rem;
     text-align: center;
-    height: 38vh;
+    height: 67vh;
+    border-radius: 0 0 20px 0;
 }
 
 #login-photo {
     width: 100%;
     height: 90vh;
     padding-bottom: 20px;
+    border-radius: 25px 0 0 0;
 }
 
 #logo {
-    font-family: 'ZCOOL XiaoWei', serif;
+    font-family: 'ZCOOL XiaoWei', serif !important;
     color: rgb(128, 0, 0);
     padding-left: 10rem;
 }
@@ -128,7 +132,7 @@ nav .navbar-brand
     background-color: rgb(128, 0, 0);
     color: rgb(255, 255, 255);
     border-color: rgb(128, 0, 0);
-    width:150px;
+    width:170px;
     font-size: 16px;
 }
 /* end*/
@@ -184,5 +188,13 @@ p {
 
 .error-white {
     color:rgb(255, 255, 255) !important;
+}
+
+.success {
+    color: rgb(0, 214, 39) !important;
+}
+
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 /* end */
