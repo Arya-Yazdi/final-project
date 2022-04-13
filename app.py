@@ -204,6 +204,17 @@ def my_posts():
 
             return render_template("my_posts.html", error_delete_title=error_delete_title, user_posts= user_posts)
 
+        delete_title = request.form.get("delete-title")
+        rows = db.execute("SELECT * FROM posts WHERE  title = ? AND user_id = ? ", delete_title, session["user_id"])
+
+        if len(rows) == 0:
+            error_invalid_title = "*You don't have a post with such title"
+
+            # Load all posts from database         
+            user_posts = db.execute("SELECT * FROM posts WHERE user_id = ? ORDER BY time DESC ", session["user_id"])
+
+            return render_template("my_posts.html", error_invalid_title=error_invalid_title, user_posts= user_posts)
+
         else:
             # Get title and content user posts (and filter offensive words)
             delete_title = request.form.get("delete-title")

@@ -13,6 +13,7 @@
         <form action="/my-posts" method="post">
             <div class="mb-3">
                 <input class="form-control" id="delete-title" name="delete-title" placeholder="Title of post you want to delete" type="text" >
+                <p class="error"> {{error_invalid_title }}</p>                
                 <p class="error"> {{ error_delete_title }}</p>
             </div>
             <button class="btn btn-primary main-button" id="delete-button" type="submit"> Delete </button>
