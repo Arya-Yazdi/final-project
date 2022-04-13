@@ -199,7 +199,7 @@ def my_posts():
         if not request.form.get("delete-title"):
             error_delete_title = "*Type in title of post you want to delete"
 
-            # Load all posts from database         
+            # Load all posts from database 
             user_posts = db.execute("SELECT * FROM posts WHERE user_id = ? ORDER BY time DESC ", session["user_id"])
 
             return render_template("my_posts.html", error_delete_title=error_delete_title, user_posts= user_posts)

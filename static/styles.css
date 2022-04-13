@@ -181,4 +181,8 @@ p {
 .error {
     color:rgb(128, 0, 0.8) !important;
 }
+
+.error-white {
+    color:rgb(255, 255, 255) !important;
+}
 /* end */
