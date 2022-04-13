@@ -30,7 +30,7 @@ nav .navbar-brand
     color: rgb(255, 255, 255);
     padding-top: 3rem;
     text-align: center;
-    height: 30.5vh;
+    height: 67vh;
     border-radius: 0 0 20px 0;
 }
 
@@ -69,8 +69,8 @@ nav .navbar-brand
 
 hr {
     display: block;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-top: 5rem;
+    margin-bottom: 1.5rem;
     margin-left: 5em;
     margin-right: 5em;
     border-width: 2px !important;
@@ -217,4 +217,7 @@ p {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+input {
+    margin-bottom: 25px !important; 
+}
 /* end */
