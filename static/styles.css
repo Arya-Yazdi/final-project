@@ -173,4 +173,12 @@ nav .navbar-brand
 h1 {
     font-size: 40px;
 }
+
+p {
+    color:rgba(0, 0, 0, 0.9) ;
+}
+
+.error {
+    color:rgb(128, 0, 0.8) !important;
+}
 /* end */

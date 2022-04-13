@@ -8,7 +8,7 @@ from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
-from helpers import apology, login_required
+from helpers import login_required
 
 # Configure application
 app = Flask(__name__)
@@ -114,14 +114,22 @@ def login():
 
 
 # Log user out 
-@app.route("/logout")
+@app.route("/logout", methods=["GET", "POST"])
 def logout():
 
-    # Clear user_id
-    session.clear()
+    if request.method == "POST":
+        # Clear user_id
+        session.clear()
 
-    # Redirect user to login form
-    return redirect("/")
+        # Redirect user to login form
+        return redirect("/")
+
+    else:
+        # Clear user_id
+        session.clear()
+
+        # Redirect user to login form
+        return redirect("/")
 ## END REGISTRATION, LOG IN , LOG OUT ##
 
 
@@ -190,7 +198,11 @@ def my_posts():
         # Ensure title of post to be deleted is included
         if not request.form.get("delete-title"):
             error_delete_title = "*Type in title of post you want to delete"
-            return render_template("my_posts.html", error_delete_title=error_delete_title)
+
+            # Load all posts from database         
+            user_posts = db.execute("SELECT * FROM posts WHERE user_id = ? ORDER BY time DESC ", session["user_id"])
+
+            return render_template("my_posts.html", error_delete_title=error_delete_title, user_posts= user_posts)
 
         else:
             # Get title and content user posts (and filter offensive words)
