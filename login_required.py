@@ -1,8 +1,4 @@
 # Function taken from source code from Harvard's CS50 class.
-import os
-import requests
-import urllib.parse
-
 from flask import redirect, render_template, session
 from functools import wraps
 
