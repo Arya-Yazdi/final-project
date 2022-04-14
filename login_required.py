@@ -1,4 +1,4 @@
-# Function taken from source code from Harvard's CS50 class.
+# Function from source code from Harvard's CS50 Week class.
 from flask import redirect, session
 from functools import wraps
 
