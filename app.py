@@ -8,7 +8,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 # Configure application
 app = Flask(__name__)
 
-# Ensure templates are auto-reloaded
+# Auto-update templates when a change is made 
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 # Configure session to use filesystem (instead of signed cookies)
