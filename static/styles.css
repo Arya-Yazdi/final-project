@@ -197,6 +197,10 @@ hr {
 input {
     margin-bottom: 20px !important; 
 }
+
+.px65-margin-right {
+    padding-right: 65px;
+}
 /* End */
 
 
