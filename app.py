@@ -22,7 +22,8 @@ db = SQL("sqlite:///final.db")
 # Configure profanity filter
 pf = ProfanityFilter()
 
-# Configure function to use @login_required
+
+# Function to use @login_required
 def login_required(f):
     
     # Taken from https://flask.palletsprojects.com/en/1.1.x/patterns/viewdecorators/
@@ -33,6 +34,7 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
     
+
 ## REGISTRATION, LOG IN , LOG OUT ##
 # Register user
 @app.route("/register", methods=["GET", "POST"])
@@ -171,7 +173,7 @@ def home():
 
         else:
             # Get username of user from database
-            user = db.execute ("SELECT username FROM users WHERE id = ?", session["user_id"])
+            user = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])
             username = user[0]["username"]
 
             # Get title and content user posts (and filter offensive words)
@@ -179,7 +181,8 @@ def home():
             filtered_content = pf.censor(request.form.get("content"))
 
             # Store title and content user posts in database
-            db.execute("INSERT INTO posts (username, user_id, title, content) VALUES (?, ?, ?, ?)", username, session["user_id"], filtered_title, filtered_content)
+            db.execute("INSERT INTO posts (username, user_id, title, content) VALUES (?, ?, ?, ?)", 
+                       username, session["user_id"], filtered_title, filtered_content)
             
             # Load all posts from database
             posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
@@ -192,6 +195,7 @@ def home():
         posts = db.execute("SELECT * FROM posts ORDER BY time DESC")
 
         return render_template("home.html", posts=posts)
+
 
 # My posts page (Viewing and deleting content)
 @app.route("/my-posts", methods=["GET", "POST"])
@@ -208,7 +212,7 @@ def my_posts():
             # Load all posts from database 
             user_posts = db.execute("SELECT * FROM posts WHERE user_id = ? ORDER BY time DESC ", session["user_id"])
 
-            return render_template("my_posts.html", error_delete_title=error_delete_title, user_posts= user_posts)
+            return render_template("my_posts.html", error_delete_title=error_delete_title, user_posts=user_posts)
 
         delete_title = request.form.get("delete-title")
         rows = db.execute("SELECT * FROM posts WHERE  title = ? AND user_id = ? ", delete_title, session["user_id"])
@@ -219,7 +223,7 @@ def my_posts():
             # Load all posts from database         
             user_posts = db.execute("SELECT * FROM posts WHERE user_id = ? ORDER BY time DESC ", session["user_id"])
 
-            return render_template("my_posts.html", error_invalid_title=error_invalid_title, user_posts= user_posts)
+            return render_template("my_posts.html", error_invalid_title=error_invalid_title, user_posts=user_posts)
 
         else:
             # Get title and content user posts (and filter offensive words)
@@ -238,7 +242,7 @@ def my_posts():
         # Load all posts from database         
         user_posts = db.execute("SELECT * FROM posts WHERE user_id = ? ORDER BY time DESC ", session["user_id"])
 
-        return render_template("my_posts.html",  user_posts= user_posts)
+        return render_template("my_posts.html",  user_posts=user_posts)
 ## END MAIN PAGES ##
 
 
@@ -248,13 +252,14 @@ def my_posts():
 @login_required
 def setting():
     # Get username and date of account creation of user from database
-    user = db.execute ("SELECT * FROM users WHERE id = ?", session["user_id"])
+    user = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
     username = user[0]["username"]
     created = user[0]["time"]
 
     # Calculate number of posts user posted
-    post_length = len(db.execute ("SELECT * FROM posts WHERE user_id = ?", session["user_id"]))
+    post_length = len(db.execute("SELECT * FROM posts WHERE user_id = ?", session["user_id"]))
     return render_template("setting.html", username=username, created=created, post_length=post_length)
+
 
 # Allow user to change password
 @app.route("/password", methods=["GET", "POST"])
@@ -265,12 +270,12 @@ def password():
     if request.method == "POST":
 
         # Get username and date of account creation of user from database
-        user = db.execute ("SELECT * FROM users WHERE id = ?", session["user_id"])
+        user = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
         username = user[0]["username"]
         created = user[0]["time"]
 
         # Calculate number of posts user posted
-        post_length = len(db.execute ("SELECT * FROM posts WHERE user_id = ?", session["user_id"]))
+        post_length = len(db.execute("SELECT * FROM posts WHERE user_id = ?", session["user_id"]))
 
         # Ensure current password was submitted
         if not request.form.get("current_password"):
@@ -300,7 +305,8 @@ def password():
 
         # Update password to new one
         elif request.form.get("new_password") == request.form.get("confirmation"):
-            db.execute("UPDATE users SET hash = ? WHERE id = ?", generate_password_hash(request.form.get("new_password")), session["user_id"])
+            db.execute("UPDATE users SET hash = ? WHERE id = ?", generate_password_hash(
+                       request.form.get("new_password")), session["user_id"])
             success_password = "*Password successfully updated"
             return render_template("setting.html", success_password=success_password, username=username, created=created, post_length=post_length)
 
@@ -308,6 +314,8 @@ def password():
     else:
         return render_template("setting.html")
 
+
+# Allow user to delete account
 @app.route("/delete-account", methods=["GET", "POST"])
 @login_required
 def delete_account():
@@ -316,12 +324,12 @@ def delete_account():
     if request.method == "POST":
 
         # Get username and date of account creation of user from database
-        user = db.execute ("SELECT * FROM users WHERE id = ?", session["user_id"])
+        user = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
         username = user[0]["username"]
         created = user[0]["time"]
 
         # Calculate number of posts user posted
-        post_length = len(db.execute ("SELECT * FROM posts WHERE user_id = ?", session["user_id"]))
+        post_length = len(db.execute("SELECT * FROM posts WHERE user_id = ?", session["user_id"]))
 
         # Ensure username was submitted
         if not request.form.get("delete-username"):
