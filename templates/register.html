@@ -31,21 +31,28 @@
                         <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password" autocomplete="off">
                         <p class="error-white"> {{ error_password }} </p>
                     </div>
-                    
+
                     <div class="mb-3">
                         <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Confirm" type="password" autocomplete="off">
                         <p class="error-white"> {{ error_reenter_password }} {{ error_password_match }} </p>
                     </div>
+
                     <button class="btn btn-primary" id="login-register-button" type="submit">Register</button>
+
                 </form>
 
                 <hr>
+
                 <p class="login-register-question"> Already have an account? </p>
+
                 <form action="/login" method="get">
                     <button class="btn btn-primary" id="login-register-button" type="submit"> Log in </button>
                 </form>
+
             </div>
+
         </div>
 
     </div>
+    
 {% endblock %}
