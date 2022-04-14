@@ -1,9 +1,21 @@
-/* Importing fonts */
+/* Font related */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=ZCOOL+XiaoWei&display=swap');
-/* end */
+
+h1 {
+    font-size: 40px;
+}
+
+p {
+    color:rgba(0, 0, 0, 0.9) ;
+}
+
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+/* End */
 
 
-/* nav bar */
+/* Nav bar */
 #white-bg {
     background-color: white !important;
 }
@@ -12,7 +24,7 @@ nav .navbar-brand
 {
     font-size: xx-large;
 }
-/* end */
+/* End */
 
 
 /* LOGIN and REGISTER page */
@@ -85,7 +97,7 @@ hr {
     color:rgb(255, 255, 255);
     font-size: 1.2rem;
 }
-/* end */
+/* End */
 
 
 /* HOME page */
@@ -143,7 +155,7 @@ hr {
     color:rgba(128, 0, 0, 0.8);
     font-style: italic;
 }
-/* end */
+/* End */
 
 
 /* SETTINGS page */
@@ -154,10 +166,10 @@ hr {
     width:170px;
     font-size: 16px;
 }
-/* end*/
+/* End*/
 
 
-/* positioning */
+/* Positional */
 .row {
     display: flex !important;
 }
@@ -174,33 +186,21 @@ hr {
     width: 40% !important;
 }
 
-#rem6-right-padding {
+.rem6-right-padding {
     padding-right: 6rem !important;
 }
 
-#rem5-right-padding {
+.rem5-right-padding {
     padding-right: 5rem !important;
 }
 
-#rem6-right-padding {
-    padding-right: 6rem !important;
+input {
+    margin-bottom: 20px !important; 
 }
-
-#rem5-right-padding {
-    padding-right: 5rem !important;
-}
-/* end */
+/* End */
 
 
-/* misc */
-h1 {
-    font-size: 40px;
-}
-
-p {
-    color:rgba(0, 0, 0, 0.9) ;
-}
-
+/* Feedback messages */
 .error {
     color:rgb(128, 0, 0.8) !important;
 }
@@ -214,12 +214,4 @@ p {
 .success {
     color: rgb(0, 214, 39) !important;
 }
-
-* {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-input {
-    margin-bottom: 20px !important; 
-}
-/* end */
+/* End */
